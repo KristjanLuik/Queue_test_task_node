@@ -26,17 +26,7 @@ module.exports = {
 
     calculate: function(msg){
         var totalintrest = 0;
-/*        for (var i = 0; i <= msg.days; i++) {
-            if (i % 3 == 0 && i % 5 == 0) {
-                totalintrest += parseFloat((0.03 * msg.sum).toFixed(2));
-            }else if (i % 3 == 0) {
-                totalintrest += parseFloat((0.01 * msg.sum).toFixed(2));
-            }else if (i % 5 == 0) {
-                totalintrest += parseFloat((0.02 * msg.sum).toFixed(2));
-            }else {
-                totalintrest += parseFloat((0.04 * msg.sum).toFixed(2));
-            }
-        }*/
+
         for (var i = 1; i <= msg.days; i++) {
             precise_round(totalintrest,2);
             if (i % 3 == 0 && i % 5 == 0) {
