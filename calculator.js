@@ -26,7 +26,7 @@ module.exports = {
 
     calculate: function(msg){
         var totalintrest = 0;
-        for (var i = 0; i <= msg.days; i++) {
+/*        for (var i = 0; i <= msg.days; i++) {
             if (i % 3 == 0 && i % 5 == 0) {
                 totalintrest += parseFloat((0.03 * msg.sum).toFixed(2));
             }else if (i % 3 == 0) {
@@ -36,12 +36,28 @@ module.exports = {
             }else {
                 totalintrest += parseFloat((0.04 * msg.sum).toFixed(2));
             }
+        }*/
+        for (var i = 1; i <= msg.days; i++) {
+            precise_round(totalintrest,2);
+            if (i % 3 == 0 && i % 5 == 0) {
+                totalintrest += +(precise_round(0.03 * msg.sum,2));
+            }else if (i % 3 == 0) {
+                totalintrest += +(precise_round(0.01 * msg.sum,2));
+            }else if (i % 5 == 0) {
+                totalintrest += +(precise_round(0.02 * msg.sum,2));
+            }else {
+                totalintrest += +(precise_round(0.04 * msg.sum,2));
+            }
         }
         return {
             sum: msg.sum,
             days: msg.days,
-            interest: totalintrest,
-            totalSum: (msg.sum + totalintrest).toFixed(2)
+            interest: +precise_round(totalintrest,2),
+            totalSum: +precise_round(msg.sum + totalintrest,2)
         };
     }
 };
+function precise_round(num, decimals) {
+    var t=Math.pow(10, decimals);
+    return (Math.round((num * t) + (decimals>0?1:0)*(Math.sign(num) * (10 / Math.pow(100, decimals)))) / t).toFixed(decimals);
+}
